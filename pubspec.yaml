@@ -1,0 +1,64 @@
+name: driped
+description: "Driped — Stop the Drip."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+  flutter: ">=3.22.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # firebase
+  firebase_core: ^3.13.0
+  firebase_auth: ^5.5.0
+  google_sign_in: ^6.2.2
+
+  # gmail scanning (phase D)
+  googleapis: ^13.2.0
+  googleapis_auth: ^1.6.0
+  extension_google_sign_in_as_googleapis_auth: ^2.0.12
+
+  # state
+  flutter_riverpod: ^2.5.3
+
+  # navigation
+  go_router: ^14.6.0
+
+  # networking + cache
+  dio: ^5.7.0
+  http: ^1.2.2
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  path_provider: ^2.1.4
+
+  # background + notifications
+  workmanager: ^0.9.0+3
+  flutter_local_notifications: ^18.0.0
+  timezone: ^0.9.4
+
+  # ui
+  fl_chart: ^0.69.0
+  flutter_animate: ^4.5.0
+  shimmer: ^3.0.0
+  cached_network_image: ^3.4.1
+  flutter_svg: ^2.0.10+1
+  lucide_icons: ^0.257.0
+  google_fonts: ^6.2.1
+  share_plus: ^10.0.2
+
+  # utils
+  intl: ^0.19.0
+  uuid: ^4.5.1
+  collection: ^1.18.0
+
+dev_dependencies:
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/icons/
+    - assets/onboarding/

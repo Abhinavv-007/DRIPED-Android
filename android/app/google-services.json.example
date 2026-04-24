@@ -1,0 +1,46 @@
+{
+  "_comment": "Download your own copy from Firebase Console → Project Settings → Your apps (Android). Save as `google-services.json` in this folder. The real file is gitignored.",
+  "project_info": {
+    "project_number": "REPLACE_WITH_PROJECT_NUMBER",
+    "project_id": "REPLACE_WITH_PROJECT_ID",
+    "storage_bucket": "REPLACE_WITH_STORAGE_BUCKET"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "REPLACE_WITH_MOBILE_SDK_APP_ID",
+        "android_client_info": {
+          "package_name": "com.abhnv.driped"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "REPLACE_WITH_ANDROID_OAUTH_CLIENT_ID",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.abhnv.driped",
+            "certificate_hash": "REPLACE_WITH_SHA1_CERT_FINGERPRINT"
+          }
+        },
+        {
+          "client_id": "REPLACE_WITH_WEB_OAUTH_CLIENT_ID",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        { "current_key": "REPLACE_WITH_ANDROID_API_KEY" }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "REPLACE_WITH_WEB_OAUTH_CLIENT_ID",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
