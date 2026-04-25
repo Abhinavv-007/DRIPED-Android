@@ -106,16 +106,42 @@ class BrandAssetResolver {
     'barclays': ['barclays'],
   };
 
+  /// Reverse alias map built lazily from `_serviceAliases`. Whenever the
+  /// canonical-slug map says e.g. `discordnitro: [discord]`, every short form
+  /// (`discord`) gets pointed back at its canonical asset (`discordnitro`)
+  /// so that subscriptions stored as `service_slug = "discord"` (because the
+  /// scanner returned the short form) still resolve to `discordnitro.webp`.
+  static late final Map<String, String> _shortToCanonical = (() {
+    final out = <String, String>{};
+    for (final entry in _serviceAliases.entries) {
+      for (final shortForm in entry.value) {
+        // Only register the reverse if it isn't already a canonical entry —
+        // otherwise we'd shadow real canonical assets like `apple` (legitimate
+        // Apple icon file) with whatever first canonical claimed `apple` as
+        // a fallback (`applemusic`, `appletv`, `applepay`, …).
+        out.putIfAbsent(shortForm, () => entry.key);
+      }
+    }
+    return out;
+  })();
+
   static Future<String?> serviceAsset({
     required String serviceSlug,
     required String serviceName,
   }) {
     final normalizedSlug = _normalize(serviceSlug);
     final normalizedName = _normalize(serviceName);
+    final canonicalFromSlug = _shortToCanonical[normalizedSlug];
+    final canonicalFromName = _shortToCanonical[normalizedName];
     final candidates = _dedupe([
       normalizedSlug,
+      // Canonical asset filename for this short form (discord → discordnitro).
+      // Tried before the short form so we don't trip on a stray test asset
+      // named after the short form when the real branded one exists.
+      if (canonicalFromSlug != null) canonicalFromSlug,
       ..._expandAliases(normalizedSlug, _serviceAliases),
       normalizedName,
+      if (canonicalFromName != null) canonicalFromName,
       ..._expandAliases(normalizedName, _serviceAliases),
       ..._normalizedWords(serviceName),
       ..._normalizedWords(serviceSlug),
