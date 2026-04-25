@@ -1,7 +1,7 @@
 name: driped
-description: "Driped — Stop the Drip."
+description: "Driped \u2014 Stop the Drip."
 publish_to: 'none'
-version: 1.0.0+1
+version: 3.1.1+311
 
 environment:
   sdk: ">=3.4.0 <4.0.0"

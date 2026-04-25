@@ -1,31 +1,63 @@
-# Firebase client configs \u2014 drop your own copy in before building.
-# These are not secrets by Firebase's definition, but we keep them out of
-# source control by policy. Use the `.example` files as templates.
-android/app/google-services.json
-ios/Runner/GoogleService-Info.plist
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
 
-# Large AI model weights \u2014 downloaded by scripts/download_local_ai_model.sh
-# See the README for setup. Do not commit, GitHub's 100 MB/file limit applies.
-android/app/src/main/assets/models/*.litertlm
-android/app/src/main/assets/models/*.tflite
-android/app/src/main/assets/models/*.bin
-!android/app/src/main/assets/models/.gitkeep
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
 
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
 .dart_tool/
-.flutter-plugins
 .flutter-plugins-dependencies
-.packages
 .pub-cache/
 .pub/
-build/
-**/android/.gradle/
-**/android/app/debug
-**/android/app/profile
-**/android/app/release
-**/android/local.properties
-**/android/.kotlin/
-**/android/captures/
-.idea/
-*.iml
-*.log
-.DS_Store
+/build/
+/coverage/
+
+# Local on-device AI model artifacts are hundreds of MB. Keep them local and
+# ship through release asset delivery or a private build artifact pipeline.
+/android/app/src/main/assets/models/*.litertlm
+/android/app/src/main/assets/models/*.task
+/local_models/
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# Firebase client configs — drop your own copy in before building.
+# These are not secrets by Firebase's definition, but we keep them out
+# of source control by policy. See `*.example` companion files for the
+# expected shape.
+/android/app/google-services.json
+/ios/Runner/GoogleService-Info.plist
+
+# Local signing key (release builds). Keep out of git.
+/android/key.properties
+/android/app/upload-keystore.jks
+/android/app/release.keystore

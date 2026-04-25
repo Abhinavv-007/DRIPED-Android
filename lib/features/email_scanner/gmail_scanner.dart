@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 import '../../core/models/billing_cycle.dart';
 import 'ai/ai_extraction_validator.dart';
-import 'ai/local_mail_ai_extractor.dart';
+import 'ai/mail_ai_extractor.dart';
 import 'ai/mail_ai_models.dart';
 import 'subscription_parser.dart';
 
@@ -72,8 +72,8 @@ class GmailScanner {
     final queries = SubscriptionParser.buildSmartQueries();
     final detected = <String, DetectedSubscription>{};
     final seenMessageIds = <String>{};
-    final localAi = LocalMailAiExtractor.instance;
-    final localAiAvailable = await localAi.isAvailable();
+    final mailAi = MailAiExtractor.instance;
+    final mailAiAvailable = await mailAi.isAvailable();
 
     // Phase 1: Aggregate all Message IDs matching the powerful new queries
     List<gmail.Message> allMessagesToScan = [];
@@ -121,9 +121,9 @@ class GmailScanner {
     }
 
     int scanned = 0;
-    final batchSize = localAiAvailable
-        ? 4
-        : 10; // Native local LLM inference is serialized by the platform bridge.
+    // Cloud AI is parallelisable, so we keep the batch large regardless. The
+    // Worker side rate-limits to 100 extractions/user/minute.
+    const batchSize = 10;
 
     for (int i = 0; i < allMessagesToScan.length; i += batchSize) {
       final end = (i + batchSize < allMessagesToScan.length)
@@ -186,14 +186,23 @@ class GmailScanner {
                   chargeDate: chargeDate,
                 );
 
-          if (localAiAvailable && candidateSignals.shouldAnalyzeWithAi) {
-            final aiExtraction = await localAi.extract(MailAiInput(
-              from: from,
-              subject: subject,
-              snippet: snippet,
-              body: _prepareAiBody(textContent),
-              emailDate: chargeDate,
-            ));
+          // Only escalate to cloud AI when the deterministic parser is unsure
+          // OR when we have signals but no merchant resolution yet. This keeps
+          // /scan/extract well under the per-user rate limit.
+          final shouldEscalate = mailAiAvailable &&
+              candidateSignals.shouldAnalyzeWithAi &&
+              (resolution == null || (accepted?.requiresReview ?? false));
+          if (shouldEscalate) {
+            final aiExtraction = await mailAi.extract(
+              MailAiInput(
+                from: from,
+                subject: subject,
+                snippet: snippet,
+                body: _prepareAiBody(textContent),
+                emailDate: chargeDate,
+              ),
+              hintMerchant: resolution?.serviceSlug,
+            );
             if (aiExtraction != null) {
               final aiDetected = AiExtractionValidator.toDetectedSubscription(
                 aiExtraction,

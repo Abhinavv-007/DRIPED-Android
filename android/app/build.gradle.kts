@@ -25,13 +25,9 @@ android {
         applicationId = "com.abhnv.driped"
         minSdk = flutter.minSdkVersion
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 311
+        versionName = "3.1.1"
         multiDexEnabled = true
-    }
-
-    androidResources {
-        noCompress += listOf("litertlm")
     }
 
     buildTypes {
@@ -54,7 +50,6 @@ flutter {
 dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.2")
     implementation(platform("com.google.firebase:firebase-bom:34.12.0"))
-    implementation("com.google.ai.edge.litertlm:litertlm-android:0.10.2")
     implementation("androidx.multidex:multidex:2.0.1")
     implementation("androidx.window:window:1.3.0")
     implementation("androidx.window:window-java:1.3.0")

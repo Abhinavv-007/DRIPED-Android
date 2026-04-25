@@ -15,11 +15,6 @@
         android:icon="@mipmap/ic_launcher"
         android:enableOnBackInvokedCallback="true">
 
-        <!-- Optional GPU acceleration support for LiteRT-LM. The app still runs
-             on CPU when these native libraries are unavailable. -->
-        <uses-native-library android:name="libvndksupport.so" android:required="false" />
-        <uses-native-library android:name="libOpenCL.so" android:required="false" />
-
         <activity
             android:name=".MainActivity"
             android:exported="true"
