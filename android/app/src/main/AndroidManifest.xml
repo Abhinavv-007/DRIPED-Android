@@ -13,7 +13,14 @@
         android:label="Driped"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:enableOnBackInvokedCallback="true">
+
+        <!-- Default notification icon for flutter_local_notifications + workmanager.
+             Must be a white-on-transparent silhouette; Android tints it system-side. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_stat_driped" />
 
         <activity
             android:name=".MainActivity"
