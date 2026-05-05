@@ -229,5 +229,5 @@ Rate limit: **100 extractions / user / minute**. Per-email result cached **24 h*
 <div align="center">
   <sub>💧 Built by <a href="https://abhnv.in"><b>Abhinav Raj</b></a> · companion to <a href="https://github.com/Abhinavv-007/DRIPED-Web">DRIPED-Web</a>.</sub>
   <br/>
-  <a href="https://abhnv.in">Portfolio</a> · <a href="https://www.linkedin.com/in/abhnv07/">LinkedIn</a> · <a href="https://x.com/Abhnv007">X</a> · <a href="https://www.instagram.com/abhinavv.007/">Instagram</a>
+  <a href="https://abhnv.in">Portfolio</a> · <a href="https://www.linkedin.com/in/abhnv07/">LinkedIn</a> · <a href="https://x.com/Abhnv8">X</a> · <a href="https://www.instagram.com/abhinavv.007/">Instagram</a>
 </div>
